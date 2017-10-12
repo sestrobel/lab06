@@ -1,0 +1,232 @@
+Git Intro 2 Activity
+==================
+A.  Form teams
+-------------
+Form a 2-person team. Try to find someone who uses the same platform as 
+you (e.g., Windows, Linux, etc.). If you can't, that's fine. If you are 
+the odd-person-out, join a team of 2 with permission of your TA.
+Make a repo on GitHub.
+Complete the exercises below, and fill in your answers in the spaces 
+provided below each question.
+Once you have completed all the exercises and filled in this file with 
+your answers,
+add this file to your working directory (which you will create in section 
+G) and push it to your team repo.
+This file is the deliverable for this lab, so make sure you do not forget 
+to push it at the end!
+1.  List your team members below.
+
+	Liz Strobel
+	Nate Merrill
+
+D. Getting help
+---------------
+Run the following commands.
+git help
+git help -ag
+git help init
+1.  What does `git help` do?
+
+	It lists useful commands and what they do. 
+
+2.  What does `-ag` cause `git help` to do?
+
+	The combination of the 'a' and 'g' command line arguments gives a list of alll possible git
+	commands and some concept guides. 
+
+G. Basic commands
+-----------------
+Open the terminal. Navigate to your team's repository directory.
+Create a directory inside of your team repository which will act as your 
+submission directory for this lab.
+The directory should be named according to the last names of your team 
+members following the format below.
+<member1LastName>_<member2LastName>_Lab6
+Use a plain text editor to create `names.txt` inside the directory you 
+just created.
+Put the names of your team in the file. Save and exit.
+Run `git status` before and after each of these commands.
+git add names.txt
+git commit Add our names.
+git log
+1.  What kind of information does `git status` report?
+
+	It will list what branch you are on, how many commits ahead/behind you are from the remote
+	master branch, as well as modifications to tracked files, and untracked files.
+
+2.  What does `git add names.txt` do?
+
+	It will tell git to start tracking the file 'names.txt' located in $PWD and stage those changes to be ready for commit.
+
+3.  What does `git commit -m "Add our names."` do?
+
+	It will commit stages changes to all tracked files in the local repository to be ready to push to the repository on the remote server. 
+
+Use a plain text editor to create the following files:
+-  `birthdays.txt` - Put your birthdays in this file. (you are not 
+obligated to use real information here)
+-  `movies.txt` - Put the last movie each of you watched in alphabetical 
+order.
+Run `git status` before and after each of these commands.
+git add .
+git commit         Note:  Commit will open the vim editor; write a 
+multi-line commit
+   message, save 
+and quit (press esc and then type :wq).
+git log
+4.  What does `git add .` do? What do you think `.` means?
+
+	It adds all untracked files in the current directory tree to be tracked by git and stages changes to be ready for commit.
+
+5.  What does `git commit` (without -m) do?
+
+	It will commit staged changes to tracked files locally, then open a text editor and force you to make a commit message.
+
+6.  If you want to write a more detailed commit message (which is
+good practice) what command would you use?
+
+	You can use the -m flag or a text editor by omitting that argument; however, it may be
+	easier to write a longer, more detailed commit message in a text editor than in the shell.
+
+7.  What does `git log do`?
+
+	It lists recent recent commits, their authors, and the time and date of the commit.
+
+
+H. Stage/Cache/Index
+--------------------
+Do the following:
+-  Modify `names.txt` so that names are listed in *Last, First* format,
+one per line.
+-  Modify `movies.txt` so they are in reverse alphabetical order
+by title.
+-  Create a new file `foods.txt` that contains your favorite foods (one
+for each team member).
+Run the following commands:
+git add names.txt
+git status
+1.  Below write each file name under the state that its changes are
+currently in. Compose a definition for each state.
+**Staged**
+names.txt
+**Unstaged**
+movies.txt
+**Untracked**
+foods.txt
+
+1.  If you run `git commit` what changes will be committed (***DON'T DO IT***)?
+
+	It will commit staged changes in movies.txt to be ready to push to the remote repository.
+	
+2.  What command do you run to stage changes?
+
+	git commit
+
+3.  What command do you run to unstage changes?
+
+	git reset <file>
+
+Run the following commands:
+git diff
+git diff --cached
+1.  What does `git diff` display?
+
+	It shows file differences not yet staged.
+
+2.  What does `git diff --cached` display?
+
+	It  shows differences on staged files.
+
+3.  Formulate a sequence of commands to unstage changes to `names.txt`,
+and stage the changes to `movies.txt`. Write them here. Execute your 
+commands and
+confirm they worked.
+
+	git rm --cached names.txt
+	git add movies.txt
+	
+
+4.  Edit `movies.txt`, change any one of the movies, and save it. Then
+run `git status`. What do you observe? Explain what you think is
+going on.
+
+	Git shows changes to movies.txt that have not been staged for commit yet. Running the add command will stage those changes 
+
+5.  Delete `names.txt`. Then run `git status`. What do you observe?
+Explain what you think is going on.
+
+	It automatically stages the change that names.txt has been deleted.
+
+6.  Rename `movies.txt` to `last-movies`. Run `git status`. Observe
+and explain.
+
+	It says that we deleted movies.txt, but that change has not been automatically staged, since we have cached changes in the index. It also shows the untracked file 'last-movies' 
+
+7.  Formulate a sequence of commands to stage all changes including the
+untracked file and commit (with any reasonable message you like).
+Execute them.
+
+	git add .
+	git commit -m "Added foods.txt, moved movies.txt to last-movies"
+
+8.  In git vernacular, `index`, `cache`, and `stage` all refer to the
+same thing. What does it hold?
+
+	The changes to tracked files that have been git added.  
+
+9.  Why have a `stage`? Why not just commit all changes since the last
+commit?
+
+	You may not be certain in the usefulness of all changes, but only some. 
+
+I. Undo
+-------
+Run the following commands:
+git log
+git status
+git reset --soft "HEAD^"
+git log
+git status
+1.  What does `git reset --soft ``"HEAD^" `do?
+
+	It will revert files to their state in the previous commit, but  leaves the stage the same.
+
+Run the following commands:
+git commit -m "Redo."
+git log
+git status
+git reset --hard "HEAD^"
+git log
+git status
+1.  What does `git reset --hard ``"HEAD^"`` `do?
+
+	It emptied the stage/index/cache
+
+2.  What is the difference between `--hard` and `--soft`?
+
+	--soft leaves the stage alone while --hard clears it. Both revert to the last commmit.  
+
+3.  What do you think `HEAD` means?
+
+	HEAD is a reference to the current commit.
+
+4.  What do you think `HEAD^` means?
+
+	Short for HEAD^1, it is the parent of the current commit.
+
+5.  On Canvas, put two things: 1) a link to your repo (as a comment on the 
+assignment), and 2) submit this document.
+
+6.  Push this document, completed, to your repo.
+J. Helpful resources
+--------------------
+-  <https://git-scm.com/doc>
+-  <https://www.atlassian.com/git/tutorials/>
+-  github-git-cheat-sheet.pdf on class website
+K. Copyright and Licensing
+--------------------------
+Adapted from:
+Copyright 2016, Darci Burdge and Stoney Jackson SOME RIGHTS RESERVED
+This work is licensed under the Creative Commons Attribution-ShareAlike
+4.0 International License. To view a copy of this license, visit
+<http://creativecommons.org/licenses/by-sa/4.0/> .
